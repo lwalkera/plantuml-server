@@ -13,6 +13,7 @@
     <c:set var="imgurl" value="${hostpath}/png/${encoded}" />
     <c:set var="svgurl" value="${hostpath}/svg/${encoded}" />
     <c:set var="txturl" value="${hostpath}/txt/${encoded}" />
+    <c:set var="b64url" value="${hostpath}/base64/${encoded}" />
     <c:if test="${!empty mapneeded}">
         <c:set var="mapurl" value="${hostpath}/map/${encoded}" />
     </c:if>

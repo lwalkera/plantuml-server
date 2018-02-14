@@ -16,6 +16,10 @@
 		<servlet-class>net.sourceforge.plantuml.servlet.Welcome</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>b64servlet</servlet-name>
+		<servlet-class>net.sourceforge.plantuml.servlet.B64Servlet</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>imgservlet</servlet-name>
 		<servlet-class>net.sourceforge.plantuml.servlet.ImgServlet</servlet-class>
 	</servlet>
@@ -68,6 +72,10 @@
         <servlet-name>imgservlet</servlet-name>
         <url-pattern>/png/*</url-pattern>
     </servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>b64servlet</servlet-name>
+		<url-pattern>/base64/*</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>imgservlet</servlet-name>
 		<url-pattern>/img/*</url-pattern>

@@ -28,6 +28,7 @@ import java.io.PrintWriter;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Base64;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
@@ -64,6 +65,7 @@ class DiagramResponse {
         map.put(FileFormat.SVG, "image/svg+xml");
         map.put(FileFormat.EPS, "application/postscript");
         map.put(FileFormat.UTXT, "text/plain;charset=UTF-8");
+        map.put(FileFormat.BASE64, "text/plain;charset=UTF-8");
         CONTENT_TYPE = Collections.unmodifiableMap(map);
     }
 
@@ -85,7 +87,15 @@ class DiagramResponse {
         if (StringUtils.isDiagramCacheable(uml)) {
             addHeaderForCache(blockUml);
         }
-        reader.outputImage(response.getOutputStream(), new FileFormatOption(format, false));
+        if (format == FileFormat.BASE64) {
+            response.addHeader("Access-Control-Allow-Origin", "*");
+            response.getOutputStream().write("data:image/png;base64,".
+                getBytes());
+            reader.outputImage(Base64.getEncoder().wrap(response.getOutputStream()),
+                new FileFormatOption(FileFormat.PNG, false));
+        } else {
+            reader.outputImage(response.getOutputStream(), new FileFormatOption(format, false));
+        }
     }
 
     private boolean notModified(BlockUml blockUml) {
